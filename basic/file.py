@@ -24,8 +24,6 @@ def create_file(filename):
     with open(filename,'w',encoding='utf-8') as f:
         f.write('')
 
-     
-
 content = read_file('resources/doc.txt')
 print(f"文件内容:{content}")
 new_content = content.replace('hello','hello1')
