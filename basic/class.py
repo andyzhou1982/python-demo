@@ -34,7 +34,13 @@ class Benz2018(BenzCar):
 
 tires = [Tire(20,'2020-9-1') for i in range(4)]
 car1 = Benz2016('红色','123',tires)
+print(f"car1的所有属性和方法:{dir(car1)}")
 car2 = Benz2018('黄色','456',tires,100)
+print(f"动态获取car1的颜色属性:{getattr(car1,'color')}")
+print(f"动态判断car1是否有name属性:{hasattr(car1,'name')}")
+print(f"返回对象的内存地址：{id(car1)}")
+print(f"判断car1是否是BenzCar的实例：{isinstance(car1,BenzCar)}")
+print(f"判断car1的类是否为BenzCar的子类：{issubclass(car1.__class__,BenzCar)}")
 print(f"car1的颜色是{car1.color}")
 print(f"car1的价格是{car1.price}")
 print(f"car2的颜色是{car2.color}")
