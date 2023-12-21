@@ -6,7 +6,7 @@ def read_file(path):
         contents = content.split("\n")
         contents = list(filter(lambda x: x!='', contents))
         contents = list(map(lambda x: x[1:], contents))
-        print(f"contents={contents}")
+        #print(f"contents={contents}")
         return contents
     
 if __name__ == '__main__':

@@ -22,14 +22,14 @@ class ResPromptMain(Base):
 
 contents = read_file('resources/prompts.txt')
 
-
+'''
 promptList = []
 for text in contents:
     guid = XID()
     prompt = ResPromptMain(id = guid.string(),prompt_title=text, prompt_content=text)
     promptList.append(prompt)
-
-#promptList = list(map(lambda x: ResPromptMain(prompt_title=x, prompt_content=x), contents))
+'''
+promptList = list(map(lambda text: ResPromptMain(id = XID().string(),prompt_title=text, prompt_content=text), contents))
 
 engine = create_engine('mysql+pymysql://ics:ics1qazxsw2@test.zyys.tech:31601/ics_res?charset=utf8')
 Session = sessionmaker(bind=engine)
