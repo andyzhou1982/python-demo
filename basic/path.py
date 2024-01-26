@@ -1,10 +1,13 @@
 import os
+import sys
+
+
+def getCwdPath():
+    return os.getcwd()
 
 def getProjectPath():
-    return os.path.abspath('.')
-
-def getProjectPath1():
-    return os.getcwd()
+    current_root_path = os.path.dirname(os.path.dirname(__file__))
+    return current_root_path
 
 def getCurrentFilePath():
     return os.path.abspath(__file__)
@@ -17,7 +20,7 @@ def getSpecialFilePath():
 
 print(f"currentFilePath:{getCurrentFilePath()}")
 print(f"projectPath:{getProjectPath()}")
-print(f"projectPath1:{getProjectPath1()}")
+print(f"cwdPath:{getCwdPath()}")
 print(f"filePath:{getFilePath('resources/numpy.txt')}")
 print(f"specialFilePath:{getSpecialFilePath()}")
 
