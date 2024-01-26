@@ -1,6 +1,11 @@
 import xlrd
 import xlwt
 
+class NumberObject:
+    def __init__(self,num,seq):
+        self.num = num
+        self.seq = seq
+
 #读取excel文件
 def read_excel(file_name):
     workbook = xlrd.open_workbook(file_name)
@@ -12,35 +17,37 @@ def get_sheet_name(file_name):
     return workbook.sheet_names()
 
 
-workbook = read_excel('./resources/FP.xlsx')
-sheetA = workbook.sheet_by_index(0)
+workbook = read_excel('./resources/difference.xlsx')
+sheetA = workbook.sheet_by_index(1)
 
 wb = xlwt.Workbook()
 results = wb.add_sheet('results')
 
+
+sheetB = workbook.sheet_by_index(2)
+numListB = sheetB.col_values(colx=0,start_rowx=1)
+seqListB = sheetB.col_values(colx=6,start_rowx=1)
+if(len(numListB)!=len(seqListB)):
+    raise SystemError('数量不一致')
+numberList:list[NumberObject]=[]
+for i in range(len(numListB)):
+    numberList.append(NumberObject(numListB[i],str(seqListB[i])))
+
+
 #获取第二列的数据
-modListA = sheetA.col_values(colx=2,start_rowx=1)
-funListA = sheetA.col_values(colx=3,start_rowx=1)
-if(len(modListA)!=len(funListA)):
-    raise SystemError('模块和方法数量不一致')
-for i in range(len(modListA)):
-    wholeWordsA = modListA[i] + ' ' + funListA[i]
-    results.write(i, 0, wholeWordsA)
-
-    #print(f'wholeWordsA={wholeWordsA}')
-
+seqListA = sheetA.col_values(colx=1,start_rowx=2)
+for i in range(len(seqListA)):
+    #print(f"seqListA[i]={seqListA[i]}")
+    tmpstr = ""
+    y = list(filter(lambda x: x.seq==str(seqListA[i]),numberList))
+    for j in range(len(y)):
+        tmpstr += (y[j].num+",")
+    tmpstr = tmpstr[:-1]
+    #print(f"tmpstr={tmpstr}")
+    results.write(i, 0, tmpstr)
+    
 wb.save('./resources/results.xlsx')
 
-'''
-sheetB = workbook.sheet_by_index(1)
-modListB = sheetB.col_values(colx=1,start_rowx=1)
-funListB = sheetB.col_values(colx=2,start_rowx=1)
-if(len(modListB)!=len(funListB)):
-    raise SystemError('模块和方法数量不一致')
-for i in range(len(modListB)):
-    wholeWordsB = modListB[i] + ' ' + funListB[i]
-    print(f'wholeWordsB={wholeWordsB}')
-'''
 '''
 workbook = read_excel('./resources/FP.xlsx')
 sheet = workbook.sheet_by_index(0)
